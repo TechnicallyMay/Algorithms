@@ -20,6 +20,8 @@ internal class SortingBenchmarker
         for (int i = 0; i < options.NumberOfCollections; i++)
         {
             int[] collection = GenerateCollection(options.CollectionLength);
+            int[] originalCollection = new int[collection.Length];
+            collection.CopyTo(originalCollection, 0);
 
             Stopwatch sw = new();
 
@@ -29,7 +31,7 @@ internal class SortingBenchmarker
 
             runTimes[i] = sw.Elapsed;
 
-            VerifyCollectionSort(collection);
+            VerifyCollectionSort(originalCollection, collection);
         }
 
         LogBenchmarkStats(runTimes);
@@ -48,13 +50,11 @@ internal class SortingBenchmarker
         return newCollection;
     }
 
-    private void VerifyCollectionSort(int[] collection)
+    private void VerifyCollectionSort(int[] original, int[] collection)
     {
-        for (int i = 0; i < collection.Length - 1; i++)
-        {
-            if (collection[i] > collection[i + 1])
-                throw new IncorrectlySortedException();
-        }
+        //Sort the original collection using the framework, compare it to collection sorted by algorithm
+        if (!original.OrderBy(e => e).SequenceEqual(collection))
+            throw new IncorrectlySortedException();
     }
 
     private void LogBenchmarkStats(TimeSpan[] runTimes)
@@ -62,10 +62,12 @@ internal class SortingBenchmarker
         double averageSeconds = runTimes.Average(rt => rt.TotalSeconds);
 
         string sorterName = sorter.GetType().Name;
+        double totalRuntime = runTimes.Sum(rt => rt.TotalSeconds);
 
-        Console.WriteLine($"{sorterName} sorted {options.NumberOfCollections} collections of {options.CollectionLength}");
+        Console.WriteLine($"{sorterName} sorted {options.NumberOfCollections} collections of {options.CollectionLength} in {totalRuntime} seconds");
         Console.WriteLine($"Average runtime: {averageSeconds} seconds");
         Console.WriteLine($"Minimum runtime {runTimes.Min(r => r.TotalSeconds)}");
         Console.WriteLine($"Maximum runtime {runTimes.Max(r => r.TotalSeconds)}");
+        Console.WriteLine();
     }
 }

@@ -3,13 +3,21 @@ using Algorithms.Sorting.Benchmarking;
 
 BenchmarkingOptions options = new()
 {
-    CollectionLength = 100_000,
-    NumberOfCollections = 1,
-    ElementRange = new Range(0, 100),
+    CollectionLength = 10_000,
+    NumberOfCollections = 100,
+    ElementRange = new Range(0, 10),
 };
 
-var sorter = new BubbleSorter();
+IInPlaceSorter<int>[] sorters =
+{
+    new InsertionSorter(),
+    new BubbleSorter(),
+    new SelectionSorter()
+};
 
-new SortingBenchmarker(sorter, options).Benchmark();
+foreach (var sorter in sorters)
+{
+    new SortingBenchmarker(sorter, options).Benchmark();
+}
 
 Console.ReadLine();
