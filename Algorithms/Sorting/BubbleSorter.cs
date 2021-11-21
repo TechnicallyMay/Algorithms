@@ -4,6 +4,9 @@ internal class BubbleSorter : IInPlaceSorter<int>
 {
     public void Sort(int[] items)
     {
+        if (items?.Length is not > 1)
+            return;
+
         bool sorting = true;
         while (sorting)
         {

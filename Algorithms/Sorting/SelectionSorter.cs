@@ -4,6 +4,9 @@ internal class SelectionSorter : IInPlaceSorter<int>
 {
     public void Sort(int[] items)
     {
+        if (items?.Length is not > 1)
+            return;
+
         for (int i = 0; i < items.Length - 1; i++)
         {
             int smallestIndex = i;

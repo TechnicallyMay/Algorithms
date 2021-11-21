@@ -4,6 +4,9 @@ internal class InsertionSorter : IInPlaceSorter<int>
 {
     public void Sort(int[] items)
     {
+        if (items?.Length is not > 1)
+            return;
+
         for (int i = 1; i < items.Length; i++)
         {
             int j = i - 1;
