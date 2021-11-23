@@ -2,7 +2,7 @@
 
 namespace Algorithms.Sorting;
 
-internal class QuickSorter : IInPlaceSorter<int>
+internal class QuickSorter : ISorter<int>
 {
     private readonly IPivotPickingStrategy _pivotPickingStrategy;
 
@@ -11,9 +11,11 @@ internal class QuickSorter : IInPlaceSorter<int>
         _pivotPickingStrategy = pivotPickingStrategy;
     }
 
-    public void Sort(int[] items)
+    public int[] Sort(int[] items)
     {
         QuickSort(items, 0, items.Length - 1);
+
+        return items;
     }
 
     public void QuickSort(int[] items, int startIndex, int endIndex)

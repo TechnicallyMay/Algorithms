@@ -4,10 +4,10 @@ namespace Algorithms.Sorting.Benchmarking;
 
 internal class SortingBenchmarker
 {
-    private readonly IInPlaceSorter<int> sorter;
+    private readonly ISorter<int> sorter;
     private readonly BenchmarkingOptions options;
 
-    public SortingBenchmarker(IInPlaceSorter<int> sorter, BenchmarkingOptions options)
+    public SortingBenchmarker(ISorter<int> sorter, BenchmarkingOptions options)
     {
         this.sorter = sorter;
         this.options = options;
@@ -26,12 +26,12 @@ internal class SortingBenchmarker
             Stopwatch sw = new();
 
             sw.Start();
-            sorter.Sort(collection);
+            var sorted = sorter.Sort(collection);
             sw.Stop();
 
             runTimes[i] = sw.Elapsed;
 
-            VerifyCollectionSort(originalCollection, collection);
+            VerifyCollectionSort(originalCollection, sorted);
         }
 
         LogBenchmarkStats(runTimes);
@@ -66,8 +66,8 @@ internal class SortingBenchmarker
 
         Console.WriteLine($"{sorterName} sorted {options.NumberOfCollections} collections of {options.CollectionLength} in {totalRuntime} seconds");
         Console.WriteLine($"Average runtime: {averageSeconds} seconds");
-        Console.WriteLine($"Minimum runtime {runTimes.Min(r => r.TotalSeconds)}");
-        Console.WriteLine($"Maximum runtime {runTimes.Max(r => r.TotalSeconds)}");
+        Console.WriteLine($"Minimum runtime: {runTimes.Min(r => r.TotalSeconds)}");
+        Console.WriteLine($"Maximum runtime: {runTimes.Max(r => r.TotalSeconds)}");
         Console.WriteLine();
     }
 }

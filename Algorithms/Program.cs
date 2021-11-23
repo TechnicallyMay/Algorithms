@@ -4,16 +4,18 @@ using Algorithms.Sorting.Helpers;
 
 BenchmarkingOptions options = new()
 {
-    CollectionLength = 10_000,
+    CollectionLength = 1000,
     NumberOfCollections = 1000,
     ElementRange = new Range(0, 1000),
 };
 
-IInPlaceSorter<int>[] sorters =
+ISorter<int>[] sorters =
 {
-    new QuickSorter(new MedianOfThreePivotPickingStrategy()),
-    new InsertionSorter(),
     new BubbleSorter(),
+    new CountingSorter(options.ElementRange.End.Value),
+    new InsertionSorter(),
+    new MergeSorter(),
+    new QuickSorter(new MedianOfThreePivotPickingStrategy()),
     new SelectionSorter()
 };
 

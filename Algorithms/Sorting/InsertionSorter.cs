@@ -1,11 +1,11 @@
 ﻿namespace Algorithms.Sorting;
 
-internal class InsertionSorter : IInPlaceSorter<int>
+internal class InsertionSorter : ISorter<int>
 {
-    public void Sort(int[] items)
+    public int[] Sort(int[] items)
     {
         if (items?.Length is not > 1)
-            return;
+            return Array.Empty<int>();
 
         for (int i = 1; i < items.Length; i++)
         {
@@ -19,5 +19,7 @@ internal class InsertionSorter : IInPlaceSorter<int>
                 --j;
             }
         }
+
+        return items;
     }
 }

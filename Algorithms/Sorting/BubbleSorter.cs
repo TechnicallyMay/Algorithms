@@ -1,11 +1,11 @@
 ﻿namespace Algorithms.Sorting;
 
-internal class BubbleSorter : IInPlaceSorter<int>
+internal class BubbleSorter : ISorter<int>
 {
-    public void Sort(int[] items)
+    public int[] Sort(int[] items)
     {
         if (items?.Length is not > 1)
-            return;
+            return Array.Empty<int>();
 
         bool sorting = true;
         while (sorting)
@@ -24,5 +24,7 @@ internal class BubbleSorter : IInPlaceSorter<int>
 
             }
         }
+
+        return items;
     }
 }

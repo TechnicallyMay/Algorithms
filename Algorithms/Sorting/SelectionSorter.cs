@@ -1,11 +1,11 @@
 ﻿namespace Algorithms.Sorting;
 
-internal class SelectionSorter : IInPlaceSorter<int>
+internal class SelectionSorter : ISorter<int>
 {
-    public void Sort(int[] items)
+    public int[] Sort(int[] items)
     {
         if (items?.Length is not > 1)
-            return;
+            return Array.Empty<int>();
 
         for (int i = 0; i < items.Length - 1; i++)
         {
@@ -21,5 +21,7 @@ internal class SelectionSorter : IInPlaceSorter<int>
             items[i] = items[smallestIndex];
             items[smallestIndex] = copy;
         }
+
+        return items;
     }
 }

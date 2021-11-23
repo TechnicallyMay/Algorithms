@@ -1,6 +1,6 @@
 ﻿namespace Algorithms.Sorting;
 
-internal interface IOutOfPlaceSorter<T>
+internal interface ISorter<T>
 {
     public T[] Sort(T[] items);
 }

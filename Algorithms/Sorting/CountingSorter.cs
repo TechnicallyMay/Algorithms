@@ -1,6 +1,6 @@
 ﻿namespace Algorithms.Sorting;
 
-internal class CountingSorter : IOutOfPlaceSorter<int>
+internal class CountingSorter : ISorter<int>
 {
     private readonly int _maxElementValue;
 
